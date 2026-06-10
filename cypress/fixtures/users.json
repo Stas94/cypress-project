@@ -1,0 +1,10 @@
+{
+    "admin": {
+        "name": "guest",
+        "password": "welcome2qauto"
+    },
+    "user": {
+        "email": "fsdsdf@example.com",
+        "password": "Qwerty123"
+    }
+}

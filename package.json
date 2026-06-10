@@ -1,0 +1,12 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "dependencies": {
+    "cypress": "^15.17.0"
+  }
+}
