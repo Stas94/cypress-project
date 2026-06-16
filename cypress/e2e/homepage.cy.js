@@ -1,9 +1,7 @@
 describe('Header and Footer Validation', () => {
     beforeEach(function () {
-        cy.fixture('users').then(({ admin, user }) => {
-            this.admin = admin
-            this.user = user
-            cy.visit('/', { auth: { username: this.admin.name, password: this.admin.password } });
+        cy.fixture('users').then(({ admin }) => {
+            cy.visit('/', { auth: { username: admin.name, password: admin.password } });
         });
     })
 
