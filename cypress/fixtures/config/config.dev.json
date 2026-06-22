@@ -1,0 +1,9 @@
+{
+    "baseUrl": "https://qauto.forstudy.space",
+    "env": {
+        "defaultUserCreds": {
+            "username": "fsdsdf@example.com",
+            "password": "Qwerty123"
+        }
+    }
+}

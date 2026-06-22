@@ -12,5 +12,9 @@
         "lastname": "Test",
         "email": "fsdsdf12@example.com",
         "password": "Qwerty123345"
+    },
+    "userWithoutPasswordAndEmail": {
+        "name": "Test",
+        "lastname": "test"
     }
 }

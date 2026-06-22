@@ -9,7 +9,12 @@ import pluginMocha from "eslint-plugin-mocha";
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,ts}"],
-    ignores: ["node_modules/**", "html-report/**", ".gitignore"],
+    ignores: [
+      "node_modules/**",
+      "html-report/**",
+      ".gitignore",
+      "cypress/reports/**",
+    ],
     plugins: {
       js,
       "@stylistic": stylistic,
