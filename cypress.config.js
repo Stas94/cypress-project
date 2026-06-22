@@ -12,7 +12,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'https://qauto.forstudy.space/',
-    specPattern: 'cypress/e2e/**/*.cy.js',
+    baseUrl: "https://qauto.forstudy.space/",
+    specPattern: "cypress/e2e/**/*.cy.js",
   },
 });

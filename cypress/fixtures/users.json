@@ -3,8 +3,14 @@
         "name": "guest",
         "password": "welcome2qauto"
     },
-    "user": {
+    "user1": {
         "email": "fsdsdf@example.com",
         "password": "Qwerty123"
+    },
+    "user2": {
+        "name": "Test",
+        "lastname": "Test",
+        "email": "fsdsdf12@example.com",
+        "password": "Qwerty123345"
     }
 }
