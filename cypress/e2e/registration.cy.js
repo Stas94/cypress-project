@@ -1,6 +1,7 @@
-import { RegistrationModalPage } from "../page";
+import { BaseModal, RegistrationModalPage } from "../page";
 import { faker } from "@faker-js/faker";
 
+const baseModal = new BaseModal();
 const registerModal = new RegistrationModalPage();
 const registeredEmail = faker.internet.email({ provider: "example.com" });
 
@@ -15,13 +16,13 @@ describe("Registration modal", () => {
   });
 
   it("Register user invalid name", function () {
-    registerModal.openRegistrationModal();
+    registerModal.openRegistrationModal("Registration");
     registerModal.selectors.nameInput().clear();
     registerModal.fillLastName(this.user2.lastname);
     registerModal.fillUserEmail(registeredEmail);
     registerModal.fillPassword(this.user2.password);
     registerModal.fillRepeatPassword(this.user2.password);
-    registerModal.selectors.registerButton().should("be.disabled");
+    baseModal.selectors.button("Register").should("be.disabled");
     registerModal.validateFieldError(
       registerModal.selectors.nameInput,
       registerModal.errorMessages.fieldRequired("Name"),
@@ -47,20 +48,20 @@ describe("Registration modal", () => {
       .should("not.have.class", "is-invalid")
       .and("have.value", this.user2.name);
     registerModal.fillUserName("Te");
-    registerModal.selectors.registerButton().should("not.be.disabled");
+    baseModal.selectors.button("Register").should("not.be.disabled");
     registerModal.selectors.nameInput().should("not.have.class", "is-invalid");
     registerModal.fillUserName("sfdsfdsffdsfsdfdfsff");
     registerModal.selectors.nameInput().should("not.have.class", "is-invalid");
   });
 
   it("Register user invalid last name", function () {
-    registerModal.openRegistrationModal();
+    registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
     registerModal.selectors.lastNameInput().clear();
     registerModal.fillUserEmail(registeredEmail);
     registerModal.fillPassword(this.user2.password);
     registerModal.fillRepeatPassword(this.user2.password);
-    registerModal.selectors.registerButton().should("be.disabled");
+    baseModal.selectors.button("Register").should("be.disabled");
     registerModal.validateFieldError(
       registerModal.selectors.lastNameInput,
       registerModal.errorMessages.fieldRequired("Last name"),
@@ -89,7 +90,7 @@ describe("Registration modal", () => {
       .should("not.have.class", "is-invalid")
       .and("have.value", this.user2.name);
     registerModal.fillLastName("Te");
-    registerModal.selectors.registerButton().should("not.be.disabled");
+    baseModal.selectors.button("Register").should("not.be.disabled");
     registerModal.selectors
       .lastNameInput()
       .should("not.have.class", "is-invalid");
@@ -100,13 +101,13 @@ describe("Registration modal", () => {
   });
 
   it("Register user invalid email", function () {
-    registerModal.openRegistrationModal();
+    registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
     registerModal.fillLastName(this.user2.lastname);
     registerModal.selectors.emailInput().clear();
     registerModal.fillPassword(this.user2.password);
     registerModal.fillRepeatPassword(this.user2.password);
-    registerModal.selectors.registerButton().should("be.disabled");
+    baseModal.selectors.button("Register").should("be.disabled");
     registerModal.validateFieldError(
       registerModal.selectors.emailInput,
       registerModal.errorMessages.fieldRequired("Email"),
@@ -121,13 +122,13 @@ describe("Registration modal", () => {
   });
 
   it("Register user invalid password", function () {
-    registerModal.openRegistrationModal();
+    registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
     registerModal.fillLastName(this.user2.lastname);
     registerModal.fillUserEmail(registeredEmail);
     registerModal.selectors.passwordInput().clear();
     registerModal.fillRepeatPassword(this.user2.password);
-    registerModal.selectors.registerButton().should("be.disabled");
+    baseModal.selectors.button("Register").should("be.disabled");
     registerModal.validateFieldError(
       registerModal.selectors.passwordInput,
       registerModal.errorMessages.fieldRequired("Password"),
@@ -161,18 +162,18 @@ describe("Registration modal", () => {
     registerModal.selectors
       .passwordInput()
       .should("not.have.class", "is-invalid");
-    registerModal.selectors.registerButton().should("not.be.disabled");
+    baseModal.selectors.button("Register").should("not.be.disabled");
   });
 
   it("Register user invalid re-enter password", function () {
-    registerModal.openRegistrationModal();
+    registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
     registerModal.fillLastName(this.user2.lastname);
     registerModal.fillUserEmail(registeredEmail);
     registerModal.fillPassword(this.user2.password);
     registerModal.selectors.repeatPasswordInput().clear();
     registerModal.selectors.passwordInput().focus();
-    registerModal.selectors.registerButton().should("be.disabled");
+    baseModal.selectors.button("Register").should("be.disabled");
     registerModal.validateFieldError(
       registerModal.selectors.repeatPasswordInput,
       registerModal.errorMessages.reEnterPassword(),
@@ -186,19 +187,16 @@ describe("Registration modal", () => {
     registerModal.selectors
       .repeatPasswordInput()
       .should("not.have.class", "is-invalid");
-    registerModal.selectors.registerButton().should("not.be.disabled");
+    baseModal.selectors.button("Register").should("not.be.disabled");
   });
 
   it("Register user with valid data successfully", function () {
-    registerModal.openRegistrationModal();
-    registerModal.fillUserName(this.user2.name);
-    registerModal.fillLastName(this.user2.lastname);
-    registerModal.fillUserEmail(registeredEmail);
-    registerModal.fillPassword(this.user2.password);
-    registerModal.fillRepeatPassword(this.user2.password);
-    registerModal.selectors.registerButton().should("not.be.disabled");
-    registerModal.clickButtonRegister();
-    cy.contains(".alert-success", "Registration complete").should("be.visible");
+    cy.registr(
+      this.user2.name,
+      this.user2.lastname,
+      registeredEmail,
+      this.user2.password,
+    );
   });
 
   it("Login user", function () {

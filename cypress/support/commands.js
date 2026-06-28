@@ -24,6 +24,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { BaseModal, RegistrationModalPage, LoginModalPage } from "../page";
+
+const baseModal = new BaseModal();
+const registerModal = new RegistrationModalPage();
+const loginModal = new LoginModalPage();
+
 Cypress.Commands.overwrite("type", (originalFn, element, text, options) => {
   if (options && options.sensitive) {
     // turn off original log
@@ -40,11 +46,24 @@ Cypress.Commands.overwrite("type", (originalFn, element, text, options) => {
 });
 
 Cypress.Commands.add("login", (username, password) => {
-  cy.contains(".header_signin", "Sign In").should("be.visible");
-  cy.get(".header_signin").click();
-  cy.get('[class="modal-content"]').within(() => {
-    cy.get('input[id="signinEmail"]').type(username);
-    cy.get('input[id="signinPassword"]').type(password);
-    cy.contains("button", "Login").should("be.enabled").click();
+  loginModal.openLoginModal("Log in");
+  baseModal.selectors.modalContent().within(() => {
+    loginModal.fillEmail(username);
+    loginModal.fillPassword(password);
+    loginModal.clickButtonLogin("Login");
   });
+  baseModal.checkSuccessMessage("You have been successfully logged in");
+});
+
+Cypress.Commands.add("registr", (username, lastname, email, password) => {
+  registerModal.openRegistrationModal("Registration");
+  baseModal.selectors.modalContent().within(() => {
+    registerModal.fillUserName(username);
+    registerModal.fillLastName(lastname);
+    registerModal.fillUserEmail(email);
+    registerModal.fillPassword(password);
+    registerModal.fillRepeatPassword(password);
+    registerModal.clickButtonRegister("Register");
+  });
+  baseModal.checkSuccessMessage("Registration complete");
 });

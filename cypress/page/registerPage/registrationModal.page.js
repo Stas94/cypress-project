@@ -1,14 +1,13 @@
-export class RegistrationModalPage {
+import { BaseModal } from "../baseModal";
+
+export class RegistrationModalPage extends BaseModal {
   selectors = {
-    registrationModalTitle: () => cy.get(".modal-content .modal-title"),
-    nameInput: () => cy.get(".modal-content input[name='name']"),
-    lastNameInput: () => cy.get(".modal-content input[name='lastName']"),
-    emailInput: () => cy.get(".modal-content input[name='email']"),
-    passwordInput: () => cy.get(".modal-content input[name='password']"),
-    repeatPasswordInput: () =>
-      cy.get(".modal-content input[name='repeatPassword']"),
-    registerButton: () => cy.contains(".modal-content button", "Register"),
+    ...this.selectors,
+    nameInput: () => cy.get("input[name='name']"),
+    lastNameInput: () => cy.get("input[name='lastName']"),
+    repeatPasswordInput: () => cy.get("input[name='repeatPassword']"),
   };
+
   errorMessages = {
     fieldRequired: (fieldName) => `${fieldName} required`,
     fieldInvalid: (fieldName) => `${fieldName} is invalid`,
@@ -36,25 +35,23 @@ export class RegistrationModalPage {
   }
 
   fillPassword(password) {
-    this.selectors.passwordInput().clear().type(password, { sensitive: true });
+    this.selectors.passwordInput().clear().type(password, { sensitive: false });
   }
 
   fillRepeatPassword(repeatPassword) {
     this.selectors
       .repeatPasswordInput()
       .clear()
-      .type(repeatPassword, { sensitive: true });
+      .type(repeatPassword, { sensitive: false });
   }
 
-  clickButtonRegister() {
-    this.selectors.registerButton().should("not.be.disabled").click();
+  clickButtonRegister(buttonName) {
+    this.selectors.button(buttonName).should("not.be.disabled").click();
   }
 
-  openRegistrationModal() {
+  openRegistrationModal(modalTitle) {
     cy.contains(".hero-descriptor_btn", "Sign up").click();
-    this.selectors
-      .registrationModalTitle()
-      .should("have.text", "Registration");
+    this.checkModalTitle(modalTitle);
   }
 
   validateFieldError(fieldSelector, errorText) {
