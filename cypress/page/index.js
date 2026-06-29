@@ -3,4 +3,4 @@ export * from "./loginPage";
 export * from "./garagePage";
 export * from "./baseModal";
 export * from "./sharedComponents";
-export * from "./fuelExpensesPage";
+export * from "./expenses";

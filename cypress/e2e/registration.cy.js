@@ -18,7 +18,7 @@ describe("Registration modal", () => {
   it("Register user invalid name", function () {
     registerModal.openRegistrationModal("Registration");
     registerModal.selectors.nameInput().clear();
-    registerModal.fillLastName(this.user2.lastname);
+    registerModal.fillLastName(this.user2.lastName);
     registerModal.fillUserEmail(registeredEmail);
     registerModal.fillPassword(this.user2.password);
     registerModal.fillRepeatPassword(this.user2.password);
@@ -103,7 +103,7 @@ describe("Registration modal", () => {
   it("Register user invalid email", function () {
     registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
-    registerModal.fillLastName(this.user2.lastname);
+    registerModal.fillLastName(this.user2.lastName);
     registerModal.selectors.emailInput().clear();
     registerModal.fillPassword(this.user2.password);
     registerModal.fillRepeatPassword(this.user2.password);
@@ -124,7 +124,7 @@ describe("Registration modal", () => {
   it("Register user invalid password", function () {
     registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
-    registerModal.fillLastName(this.user2.lastname);
+    registerModal.fillLastName(this.user2.lastName);
     registerModal.fillUserEmail(registeredEmail);
     registerModal.selectors.passwordInput().clear();
     registerModal.fillRepeatPassword(this.user2.password);
@@ -168,7 +168,7 @@ describe("Registration modal", () => {
   it("Register user invalid re-enter password", function () {
     registerModal.openRegistrationModal("Registration");
     registerModal.fillUserName(this.user2.name);
-    registerModal.fillLastName(this.user2.lastname);
+    registerModal.fillLastName(this.user2.lastName);
     registerModal.fillUserEmail(registeredEmail);
     registerModal.fillPassword(this.user2.password);
     registerModal.selectors.repeatPasswordInput().clear();
@@ -193,7 +193,7 @@ describe("Registration modal", () => {
   it("Register user with valid data successfully", function () {
     cy.registr(
       this.user2.name,
-      this.user2.lastname,
+      this.user2.lastName,
       registeredEmail,
       this.user2.password,
     );

@@ -25,10 +25,12 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { BaseModal, RegistrationModalPage, LoginModalPage } from "../page";
+import { ExpensesApi } from "../api/expenses";
 
 const baseModal = new BaseModal();
 const registerModal = new RegistrationModalPage();
 const loginModal = new LoginModalPage();
+const expensesApi = new ExpensesApi();
 
 Cypress.Commands.overwrite("type", (originalFn, element, text, options) => {
   if (options && options.sensitive) {
@@ -66,4 +68,8 @@ Cypress.Commands.add("registr", (username, lastname, email, password) => {
     registerModal.clickButtonRegister("Register");
   });
   baseModal.checkSuccessMessage("Registration complete");
+});
+
+Cypress.Commands.add("addExpense", (expenseData) => {
+  expensesApi.createExpense(expenseData);
 });
