@@ -9,9 +9,10 @@
     },
     "user2": {
         "name": "Test",
-        "lastname": "Test",
-        "email": "fsdsdf12@example.com",
-        "password": "Qwerty123345"
+        "lastName": "Test",
+        "email": "fsdsdf48@example.com",
+        "password": "Qwerty123345",
+        "repeatPassword": "Qwerty123345"
     },
     "userWithoutPasswordAndEmail": {
         "name": "Test",
